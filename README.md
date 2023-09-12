@@ -17,7 +17,6 @@ git clone https://github.com/NSTIOM/NSTIOM_DDOS.git
 ## Requirements
 
 - Python 3.9 or higher
-- Nslookup {optional}
 - Linux or Windows
 
 ## Usage
