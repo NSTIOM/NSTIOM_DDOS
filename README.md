@@ -17,7 +17,6 @@ git clone https://github.com/NSTIOM/NSTIOM_DDOS.git
 ## Requirements
 
 - Python 3.9 or higher
-- Scapy 2.4.5 or higher
 - Nslookup {optional}
 - Linux or Windows
 
@@ -33,5 +32,3 @@ To use the project, follow these steps:
 ## Acknowledgments
 
 - [Python](https://www.python.org/)
-- [Scapy](https://scapy.net/)
-- [NSLookup](https://www.nslookup.io/)
