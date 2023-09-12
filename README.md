@@ -30,14 +30,6 @@ To use the project, follow these steps:
 - `pip install -r requirements.txt`
 - `python NSTIOM_DDOS.py`
 
-- Enter the _IP-address_ of the target Website/Machine and Port number [use `nslookup` to find the IP address of the target website or use any other online website to find the IP address of the target Website/Machine.]
-- Thats it! The attack will start automatically.
-
-## Contributing
-
-Contributions to the project are welcome. If you would like to suggest an improvement or report a bug, please open an issue or submit a pull request.
-
-
 ## Acknowledgments
 
 - [Python](https://www.python.org/)
