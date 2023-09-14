@@ -6,6 +6,9 @@ NSTIOM DDOS Tool is a tool for performing Distributed Denial of Service (DDoS) a
 
 Cradit img karthik558
 
+## Version
+## 0.14.1
+
 ## Getting Started
 
 To get started with the project, simply clone the repository to your local machine:
