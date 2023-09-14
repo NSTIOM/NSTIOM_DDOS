@@ -1,4 +1,4 @@
-import sys, os, time, argparse, socket, re, random, threading, string, json
+import sys, os, time, argparse, socket, re, random, threading, string, json, webbrowser
 from socket import socket, AF_INET, SOCK_DGRAM
 from threading import Thread
 from random import randint
@@ -342,7 +342,7 @@ def display_help():
     print('- help: Display this help message.')
     print('- clear: Clear the console screen.')
     print('- exit: Exit the program.')
-
+    print('- Discord: join discord')
 def main():
     while True:
         try:
@@ -411,6 +411,9 @@ def main():
                         print("Invalid attack choice")
             elif input_text == 'help':
                 display_help()
+            elif input_text == 'Discord':
+                url = "https://discord.gg/HQRkR6QPw4"
+                webbrowser.open(url)
             elif input_text == 'clear':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 columns = os.get_terminal_size().columns
