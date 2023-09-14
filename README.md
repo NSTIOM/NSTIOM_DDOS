@@ -31,7 +31,6 @@ To use the project, follow these steps:
 - Open the terminal and run the following command:
 - `cd NSTIOM_DDOS`
 - `pip install -r requirements.txt`
-- `python main.py`
 - Type 'help' to view the available commands and their usage
 
 ## Attack DDos
