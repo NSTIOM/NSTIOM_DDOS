@@ -24,6 +24,8 @@ git clone https://github.com/NSTIOM/NSTIOM_DDOS.git
 - Python 3.9 or higher
 - Linux or Windows
 
+## DOT DOWNLOAD HAVE VIRUS ##
+
 ## Usage
 
 To use the project, follow these steps:
