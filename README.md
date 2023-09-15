@@ -1,5 +1,4 @@
 # NSTIOM TOOL (DDoS) Attack
-# DOT DOWNLOAD HAVE VIRUS
 NSTIOM DDOS Tool is a tool for performing Distributed Denial of Service (DDoS) attacks with a variety of attack options. It supports UDP Flood, HTTP Flood, TCP Flood, Slowloris Attack, SYN Flood, ICMP Flood, and XMAS Flood, as well as Layer 4 DDoS Attack. Users can customize the attacks according to their needs.
 
 ![IMAGE](https://raw.githubusercontent.com/karthik558/ddos-attack/main/assets/banner.png)
@@ -8,8 +7,9 @@ Cradit img karthik558
 
 
 ## Version
-## 0.15.1
+## 0.15.5
 - Fix Bug
+- Remove Virus
 
 ## Getting Started
 
@@ -24,8 +24,6 @@ git clone https://github.com/NSTIOM/NSTIOM_DDOS.git
 - Python 3.9 or higher
 - Linux or Windows
 
-## DOT DOWNLOAD HAVE VIRUS ##
-
 ## Usage
 
 To use the project, follow these steps:
@@ -33,6 +31,7 @@ To use the project, follow these steps:
 - Open the terminal and run the following command:
 - `cd NSTIOM_DDOS`
 - `pip install -r requirements.txt`
+- `python NSTIOM_DDOS`
 - Type 'help' to view the available commands and their usage
 
 ## Attack DDos
