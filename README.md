@@ -9,6 +9,7 @@ Cradit img karthik558
 ## Version
 ## 0.15.5
 - Fix Bug
+- Fic Not can open
 - Remove Virus
 
 ## Getting Started
